@@ -31,7 +31,7 @@
                     {
                         "name": "Allow-HTTP",
                         
-                            "protocol": "HTTP",
+                            "protocol": "TCP",
                             "sourcePortRange": "*",
                             "destinationPortRange": "80",
                             "sourceAddressPrefix": "Internet",

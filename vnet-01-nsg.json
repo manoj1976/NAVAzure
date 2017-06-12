@@ -18,18 +18,18 @@
           "networkInterfaces": [ ],
           "securityRules": [
                      {
-                        "name": "RDP-to-Jump",
+                        "name": "Allow-RDP",
                             "protocol": "TCP",
                             "sourcePortRange": "*",
                             "destinationPortRange": "3389",
                             "sourceAddressPrefix": "Internet",
                             "destinationAddressPrefix": "10.0.4.0/24",
                             "access": "Allow",
-                            "priority": 4000,
+                            "priority": 100,
                             "direction": "Inbound" 
                     },
                     {
-                        "name": "HTTP-In",
+                        "name": "Allow-HTTP",
                         
                             "protocol": "HTTP",
                             "sourcePortRange": "*",

@@ -17,19 +17,6 @@
           ],
           "networkInterfaces": [ ],
           "securityRules": [
-                     {
-                        "name": "Allow-RDP",
-                        "properties": {
-                            "protocol": "TCP",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "3389",
-                            "sourceAddressPrefix": "Internet",
-                            "destinationAddressPrefix": "10.0.4.0/24",
-                            "access": "Allow",
-                            "priority": 100,
-                            "direction": "Inbound" 
-                        }
-                    }
           ]
         }
       ]

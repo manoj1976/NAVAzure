@@ -19,6 +19,7 @@
           "securityRules": [
                      {
                         "name": "Allow-RDP",
+                        "properties": {
                             "protocol": "TCP",
                             "sourcePortRange": "*",
                             "destinationPortRange": "3389",
@@ -27,6 +28,7 @@
                             "access": "Allow",
                             "priority": 100,
                             "direction": "Inbound" 
+                        }
                     },
                     {
                         "name": "Allow-HTTP",
@@ -50,7 +52,7 @@
                             "sourceAddressPrefix": "Internet",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
-                            "priority": 120,
+                            "priority": 300,
                             "direction": "Inbound"
                         }
                     }            

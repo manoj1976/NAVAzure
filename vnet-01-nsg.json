@@ -51,7 +51,11 @@
                         "access": "Allow",
                         "priority": 300,
                         "direction": "Inbound"
-                    }            
+                    },
+            
+                    {
+                        "name": "Allow-NAVServices",
+                        "protocol": "TCP",                        "sourcePortRange": "*",                        "destinationPortRange": "443",                        "sourceAddressPrefix": "Internet",                        "destinationAddressPrefix": "*",                        "access": "Allow",                        "priority": 300,                        "direction": "Inbound"                    }  
             
           ] 
         }

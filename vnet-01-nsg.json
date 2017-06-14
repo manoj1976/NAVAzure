@@ -18,7 +18,7 @@
           "networkInterfaces": [ ],
           "securityRules": [
                       {
-                        "name": "RDP-to-Jump",
+                        "name": "Allow-RDP",
                        "protocol": "TCP",
                         "sourcePortRange": "*",
                         "destinationPortRange": "3389",
@@ -30,14 +30,14 @@
                       },
             
                     {
-                       "name": "test",
+                       "name": "Allow-HTTP",
                        "protocol": "TCP",
                         "sourcePortRange": "*",
                         "destinationPortRange": "80",
                         "sourceAddressPrefix": "Internet",
                         "destinationAddressPrefix": "*",
                         "access": "Allow",
-                        "priority": 4010,
+                        "priority": 200,
                         "direction": "Inbound"
                     }
             

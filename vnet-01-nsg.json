@@ -29,14 +29,14 @@
                         "direction": "Inbound"
                       },
             
-                      {  
+                      {
                        "name": "test",
                        "protocol": "TCP",
                         "sourcePortRange": "*",
                         "destinationPortRange": "80",
-                        "sourceAddressPrefix": "Internet", 
-                        "destinationAddressPrefix": "*", 
-                        "access": "Allow", 
+                        "sourceAddressPrefix": "Internet",
+                        "destinationAddressPrefix": "*",
+                        "access": "Allow",
                         "priority": 4010,
                         "direction": "Inbound"
                       }

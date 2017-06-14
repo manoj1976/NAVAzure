@@ -63,7 +63,7 @@
                         "access": "Allow",
                         "priority": 400,
                         "direction": "Inbound"
-                    }  
+                    }
             
           ] 
         }

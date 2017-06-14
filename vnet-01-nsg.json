@@ -29,7 +29,7 @@
                         "direction": "Inbound"
                       },
             
-                      {
+                    {
                        "name": "test",
                        "protocol": "TCP",
                         "sourcePortRange": "*",
@@ -39,7 +39,7 @@
                         "access": "Allow",
                         "priority": 4010,
                         "direction": "Inbound"
-                      }
+                    }
             
           ]
         }

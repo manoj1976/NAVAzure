@@ -25,9 +25,22 @@
                         "sourceAddressPrefix": "Internet",
                         "destinationAddressPrefix": "10.0.255.7/32",
                         "access": "Allow",
-                        "priority": 4000,
+                        "priority": 100,
                         "direction": "Inbound"
-                      }
+                      },
+            
+                      {  
+                       "name": "test",
+                       "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "80",
+                        "sourceAddressPrefix": "Internet", 
+                        "destinationAddressPrefix": "*", 
+                        "access": "Allow", 
+                        "priority": 4010,
+                        "direction": "Inbound"
+                      }
+            
           ]
         }
       ]

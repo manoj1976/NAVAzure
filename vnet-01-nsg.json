@@ -17,7 +17,7 @@
           ],
           "networkInterfaces": [ ],
           "securityRules": [
-                      {
+                      {
                         "name": "RDP-to-Jump",
                        "protocol": "TCP",
                         "sourcePortRange": "*",

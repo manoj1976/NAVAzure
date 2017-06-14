@@ -41,7 +41,7 @@
                         "direction": "Inbound"
                     },
             
-                    {
+                    {
                         "name": "Allow-HTTPS",
                         "protocol": "TCP",
                         "sourcePortRange": "*",

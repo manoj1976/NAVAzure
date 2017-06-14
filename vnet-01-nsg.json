@@ -17,6 +17,17 @@
           ],
           "networkInterfaces": [ ],
           "securityRules": [
+                      {
+                        "name": "RDP-to-Jump",
+                       "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "3389",
+                        "sourceAddressPrefix": "Internet",
+                        "destinationAddressPrefix": "10.0.255.7/32",
+                        "access": "Allow",
+                        "priority": 4000,
+                        "direction": "Inbound"
+                      }
           ]
         }
       ]

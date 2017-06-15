@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "northeurope"
+        },
+        "virtualMachineName": {
+            "value": "appsvr"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_DS11_v2"
+        },
+        "adminUsername": {
+            "value": "navadmin"
+        },
+        "virtualNetworkName": {
+            "value": "vnet01"
+        },
+        "networkInterfaceName": {
+            "value": "appsvr232"
+        },
+        "networkSecurityGroupName": {
+            "value": "appsvr-nsg"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "availabilitySetName": {
+            "value": "avset01"
+        },
+        "availabilitySetPlatformFaultDomainCount": {
+            "value": "2"
+        },
+        "availabilitySetPlatformUpdateDomainCount": {
+            "value": "5"
+        },
+        "diagnosticsStorageAccountName": {
+            "value": "rgmanojdiag959"
+        },
+        "diagnosticsStorageAccountId": {
+            "value": "/subscriptions/14ed8c75-efbb-4086-a182-941bd4556e35/resourceGroups/rg-manoj/providers/Microsoft.Storage/storageAccounts/rgmanojdiag959"
+        },
+        "subnetName": {
+            "value": "app"
+        },
+        "publicIpAddressName": {
+            "value": "appsvr-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        }
+    }
+}

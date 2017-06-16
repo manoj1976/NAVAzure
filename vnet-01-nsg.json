@@ -22,8 +22,8 @@
                        "protocol": "TCP",
                         "sourcePortRange": "*",
                         "destinationPortRange": "3389",
-                        "sourceAddressPrefix": "Internet",
-                        "destinationAddressPrefix": "10.0.255.7/32",
+                        "sourceAddressPrefix": "Any",
+                        "destinationAddressPrefix": "10.0.4.0/24",
                         "access": "Allow",
                         "priority": 100,
                         "direction": "Inbound"

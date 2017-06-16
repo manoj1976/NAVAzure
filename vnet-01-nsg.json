@@ -11,7 +11,7 @@
     "networkSecurityGroupsSettings": {
       "value": [
         {
-          "name": "app-nsg",
+          "name": "app01-nsg",
           "subnets": [
             "app"
           ],

@@ -1,0 +1,252 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "availabilitySets_avset01_name": {
+            "defaultValue": "avset01",
+            "type": "String"
+        },
+        "networkInterfaces_nic01_name": {
+            "defaultValue": "nic01",
+            "type": "String"
+        },
+        "networkSecurityGroups_app_nsg_name": {
+            "defaultValue": "app-nsg",
+            "type": "String"
+        },
+        "publicIPAddresses_app01_ip_name": {
+            "defaultValue": "app01-ip",
+            "type": "String"
+        },
+        "virtualNetworks_vnet01_name": {
+            "defaultValue": "vnet01",
+            "type": "String"
+        },
+        "storageAccounts_rgnavdiag281_name": {
+            "defaultValue": "rgnavdiag281",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Compute/availabilitySets/avset01'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "sku": {
+                "name": "Aligned"
+            },
+            "name": "[parameters('availabilitySets_avset01_name')]",
+            "apiVersion": "2016-04-30-preview",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 2,
+                "virtualMachines": [
+                ]
+            },
+            "dependsOn": [
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Network/networkInterfaces/nic01'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_nic01_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.0.4.15",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_app01_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet01_name')), '/subnets/app')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_app_nsg_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_app01_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet01_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_app_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Network/networkSecurityGroups/app-nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_app_nsg_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Allow-RDP",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-HTTP",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 200,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-HTTPS",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 300,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-NAVServices",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "7000-8000",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 400,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Network/publicIPAddresses/app01-ip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_app01_ip_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "group2468app01"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Network/virtualNetworks/vnet01'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_vnet01_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "GatewaySubnet",
+                        "properties": {
+                            "addressPrefix": "10.0.255.224/27"
+                        }
+                    },
+                    {
+                        "name": "adds",
+                        "properties": {
+                            "addressPrefix": "10.0.1.0/24"
+                        }
+                    },
+                    {
+                        "name": "core",
+                        "properties": {
+                            "addressPrefix": "10.0.2.0/24"
+                        }
+                    },
+                    {
+                        "name": "web",
+                        "properties": {
+                            "addressPrefix": "10.0.3.0/24"
+                        }
+                    },
+                    {
+                        "name": "app",
+                        "properties": {
+                            "addressPrefix": "10.0.4.0/24",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_app_nsg_name'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "sql",
+                        "properties": {
+                            "addressPrefix": "10.0.5.0/24"
+                        }
+                    },
+                    {
+                        "name": "ApplicationGatewaySubnet",
+                        "properties": {
+                            "addressPrefix": "10.0.254.224/29"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_app_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgnav/providers/Microsoft.Storage/storageAccounts/rgnavdiag282'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_rgnavdiag281_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "northeurope",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        }
+    ]
+}

@@ -1,0 +1,204 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+	       "availabilitySets_avset01_name": {
+            "defaultValue": "avset01",
+            "type": "String"
+        },
+        "disks_app01_OsDisk_1_c40076c3b36e4fa8bc466086ba2ec9fa_name": {
+            "defaultValue": "app01_OsDisk_1_c40076c3b36e4fa8bc466086ba2ec9fa",
+            "type": "String"
+        },
+        "virtualMachines_app01_name": {
+            "defaultValue": "app01",
+            "type": "String"
+        },
+        "networkInterfaces_nic01_name": {
+            "defaultValue": "nic01",
+            "type": "String"
+        },
+        "networkSecurityGroups_app_nsg_name": {
+            "defaultValue": "app-nsg",
+            "type": "String"
+        },
+        "publicIPAddresses_app01_ip_name": {
+            "defaultValue": "app01-ip",
+            "type": "String"
+        },
+        "virtualNetworks_vnet01_name": {
+            "defaultValue": "vnet01",
+            "type": "String"
+        },
+        "storageAccounts_rgnavdiag282_name": {
+            "defaultValue": "rgnavdiag282",
+            "type": "String"
+        },
+      "vmadminpassword": {
+	        "type": "securestring"
+      }
+    },
+
+
+    "variables": {},
+    "resources": [
+			{
+	            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Compute/availabilitySets/avset01'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "sku": {
+                "name": "Aligned"
+            },
+            "name": "[parameters('availabilitySets_avset01_name')]",
+            "apiVersion": "2016-04-30-preview",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 2,
+                "virtualMachines": [
+				    {
+                        "id": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_app01_name'))]"
+                    }
+                ]
+            },
+            "dependsOn": [
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Compute/disks/app01_OsDisk_1_c40076c3b36e4fa8bc466086ba2ec9fa'.",
+            "type": "Microsoft.Compute/disks",
+            "name": "[parameters('disks_app01_OsDisk_1_c40076c3b36e4fa8bc466086ba2ec9fa_name')]",
+            "apiVersion": "2016-04-30-preview",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "accountType": "Premium_LRS",
+                "osType": "Windows",
+                "creationData": {
+                    "createOption": "FromImage",
+                    "imageReference": {
+                        "id": "/Subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/Providers/Microsoft.Compute/Locations/northeurope/Publishers/MicrosoftWindowsServer/ArtifactTypes/VMImage/Offers/WindowsServer/Skus/2016-Datacenter/Versions/latest"
+                    }
+                },
+                "diskSizeGB": 128
+            },
+            "dependsOn": []
+        },	
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Network/networkInterfaces/nic01'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_nic01_name')]",
+            "apiVersion": "2017-03-01",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.0.4.15",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_app01_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet01_name')), '/subnets/app')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_app_nsg_name'))]"
+                }
+            },
+            "dependsOn": [
+
+            ]
+        },	
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgnav/providers/Microsoft.Storage/storageAccounts/rgnavdiag281'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_rgnavdiag282_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "northeurope",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+		
+        {
+            "comments": "Generalized from resource: '/subscriptions/0336f3cf-9120-41a2-8441-66e9184c6acc/resourceGroups/rgNAV/providers/Microsoft.Compute/virtualMachines/app01'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_app01_name')]",
+            "apiVersion": "2016-04-30-preview",
+            "location": "northeurope",
+            "scale": null,
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_avset01_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS11_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[concat(parameters('virtualMachines_app01_name'),'_OsDisk_1_c40076c3b36e4fa8bc466086ba2ec9fa')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            
+                        }
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_app01_name')]",
+                    "adminUsername": "appadmin",
+					"adminPassword":"[parameters('vmadminpassword')]",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+					
+                    "secrets": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic01_name'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat('https', '://', parameters('storageAccounts_rgnavdiag282_name'), '.blob.core.windows.net', '/')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_avset01_name'))]",
+				"[resourceId('Microsoft.Compute/disks', parameters('disks_app01_OsDisk_1_c40076c3b36e4fa8bc466086ba2ec9fa_name'))]",				
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic01_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_rgnavdiag282_name'))]"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+#How to upload files from local drive to Azure Storage account(BLOB)
+$storageAccountName ='satest2017'
+$blobContainerName='testcont1'
+$localFileDirectory = "C:\Temp\AzureFilesToUpload\"
+$BlobName = "junkfile.txt" #File name to upload
+$localFile = $localFileDirectory + $BlobName 
+
+$storageKey='h2t4Xna9pse3AU+eUfq1PejY8i42bPz4qeW2BpVRwq1FC4Rvw0lOXAlxXqMiGwqKrMonR1wit6jv1BYmNas2jw=='
+$ctx = New-AzureStorageContext -StorageAccountName $storageAccountName -StorageAccountKey $storageKey
+
+
+Set-AzureStorageBlobContent -File $localFile -Container $blobContainerName -Blob $BlobName -Context $ctx
